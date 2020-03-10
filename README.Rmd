@@ -1,0 +1,35 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# ppit
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferring microbial taxonomy from _nifH_ amplicons. PPIT provides a higher proportion of correct taxonomic inferences at all taxonomic ranks in comparison to BLAST-based approaches at the cost of fewer total inferences.
+
+## Installation
+
+To install `ppit` directly from RStudio, use the `devtools` package:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("BKapili/ppit")
+```
+
+## Documentation
+
+To get started, see the tutorial that walks through the analysis using _nifH_ amplicons generated from Illumina MiSeq data.
+
