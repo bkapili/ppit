@@ -1,0 +1,18 @@
+Package: ppit
+Type: Package
+Imports: 
+    ape (>= 5.3),
+    Biostrings (>= 2.52.0)
+Title: Phylogenetic Placement for Inferring Taxonomy
+Version: 1.2.0
+Authors@R: person("Bennett", "Kapili", email = "kapili@stanford.edu",
+		role = c("aut", "cre"))
+Description: Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package that infers microbial taxonomy from nifH amplicons using both phylogenetic and sequence identity approaches. For details, see Kapili & Dekas, in prep.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.1.1
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
