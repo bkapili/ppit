@@ -1,49 +1,31 @@
-PPIT tutorial (v.1.2.0)
-================
+---
+title: "PPIT tutorial (v.1.2.0)"
+output: github_document
+---
 
-|                                                                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferring source organism identity of *nifH* sequences. For additional details, see Kapili & Dekas, in prep. |
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+-----
+Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferring source organism identity of _nifH_ sequences. For additional details, see Kapili & Dekas, in prep.
+-----
 
 ## Getting started
 
 To install `ppit` directly from RStudio, use the `devtools` package:
 
-``` r
+``` {r message = FALSE}
 # install.packages("devtools")
 devtools::install_github("BKapili/ppit")
-#> 
-#>   
-   checking for file ‘/private/var/folders/lv/ngmpvk051nj98v04ywgsvtkr0000gn/T/RtmpgLnfSW/remotes6814294c4762/BKapili-ppit-b2bcecb/DESCRIPTION’ ...
-  
-✔  checking for file ‘/private/var/folders/lv/ngmpvk051nj98v04ywgsvtkr0000gn/T/RtmpgLnfSW/remotes6814294c4762/BKapili-ppit-b2bcecb/DESCRIPTION’
-#> 
-  
-─  preparing ‘ppit’:
-#> 
-  
-   checking DESCRIPTION meta-information ...
-  
-✔  checking DESCRIPTION meta-information
-#> 
-  
-─  checking for LF line-endings in source and make files and shell scripts
-#> 
-  
-─  checking for empty or unneeded directories
-#> ─  looking to see if a ‘data/datalist’ file should be added
-#> 
-  
-─  building ‘ppit_1.2.0.tar.gz’ (2s)
-#> 
-  
-   
-#> 
 ```
 
-Now, let’s load the `ppit` package to get started.
+Now, let's load the `ppit` package to get started.
 
-``` r
+```{r message = FALSE}
 library(ppit)
 library(phyloseq)
 library(Biostrings)
@@ -51,70 +33,38 @@ library(ape)
 library(ggplot2)
 ```
 
-In this tutorial, we’ll work with:
+In this tutorial, we'll work with:
 
-  - *nifH* amplicons generated from processing 2x250 paired-end Illumina
-    MiSeq reads using dada2
-  - SEPP (v.4.3.5) output alignment of reference and query *nifH*
-    sequences
-  - SEPP output tree of reference and query *nifH* sequences
+* _nifH_ amplicons generated from processing 2x250 paired-end Illumina MiSeq reads using dada2
+* SEPP (v.4.3.5) output alignment of reference and query _nifH_ sequences
+* SEPP output tree of reference and query _nifH_ sequences
 
-These data have already been processed as outlined in Kapili & Dekas, in
-prep. and are included in the package. For help with the SEPP placement,
-see the bonus section at the end of this vignette or the [SEPP
-tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
+These data have already been processed as outlined in Kapili & Dekas, in prep. and are included in the package. For help with the SEPP placement, see the bonus section at the end of this vignette or the [SEPP tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
+
 
 ## Optimize operational phylogenetic neighborhood
 
-Here, we’ll optimize the operational phylogenetic neighborhood. This
-neighborhood defines the maximum distance between a query and reference
-sequence we’ll consider when making host inferences. The actual
-parameter that we’re optimizing is the maximum sum of branch lengths
-(.., patristic distance) we’ll consider between a query and reference
-sequence. Here, we’re defining the optimal value as that which maximizes
-the number of inferences returned at the phylum rank.
+Here, we'll optimize the operational phylogenetic neighborhood. This neighborhood defines the maximum distance between a query and reference sequence we'll consider when making host inferences. The actual parameter that we're optimizing is the maximum sum of branch lengths (\emph{i}.\emph{e}., patristic distance) we'll consider between a query and reference sequence. Here, we're defining the optimal value as that which maximizes the number of inferences returned at the phylum rank. 
 
-Note that, while similar in concept, the phylogenetic neighborhood is
-different than the rank cutoffs. The primary goal of setting an upper
-bound to the sum of branch lengths allowed between a query and reference
-sequence is to reduce the number of query sequences mistakenly flagged
-for potential horizontal gene transfer. On their own, the patristic
-distance rank cutoffs have the tendency to overexplore tree space and
-mischaracterize vertical inheritance as horizontal inheritance (see
-Kapili & Dekas, in prep.). The value of the operational phylogenetic
-neighborhood depends on the query set and can be lower than the
-phylum/class/order/family cutoffs, but cannot be lower than the genus
-cutoff. This requires that, at minimum, we will use all reference
-sequences within the genus cutoff during inferencing. Typically, this
-step increases `ppit`’s ability to draw inferences.
+Note that, while similar in concept, the phylogenetic neighborhood is different than the rank cutoffs. The primary goal of setting an upper bound to the sum of branch lengths allowed between a query and reference sequence is to reduce the number of query sequences mistakenly flagged for potential horizontal gene transfer. On their own, the patristic distance rank cutoffs have the tendency to overexplore tree space and mischaracterize vertical inheritance as horizontal inheritance (see Kapili & Dekas, in prep.). The value of the operational phylogenetic neighborhood depends on the query set and can be lower than the phylum/class/order/family cutoffs, but cannot be lower than the genus cutoff. This requires that, at minimum, we will use all reference sequences within the genus cutoff during inferencing. Typically, this step increases `ppit`'s ability to draw inferences.
 
-To do this, we run the function `tree.partition`, which requires 6
-arguments:
+To do this, we run the function `tree.partition`, which requires 6 arguments:
 
-  - `type`: specifies whether the query sequences are `partial` (e.g.,
-    amplicons) or `full` sequences (e.g., from metagenome-assembled
-    genomes). This argument affects how we calculate pairwise percent
-    identity (see `?tree.partition` for more details)
+* `type`: specifies whether the query sequences are `partial` (e.g., amplicons) or `full` sequences (e.g., from metagenome-assembled genomes). This argument affects how we calculate pairwise percent identity (see `?tree.partition` for more details)
 
-  - `query`: vector of the query names for which we want to infer host
-    identity
+* `query`: vector of the query names for which we want to infer host identity
 
-  - `tree`: reference tree with query sequences placed into it
+* `tree`: reference tree with query sequences placed into it
 
-  - `alignment`: reference nucleotide alignment with inserted query
-    sequences
+* `alignment`: reference nucleotide alignment with inserted query sequences
 
-  - `taxonomy`: data frame containing the taxonomic and supplementary
-    information for the reference sequences
+* `taxonomy`: data frame containing the taxonomic and supplementary information for the reference sequences
 
-  - `cutoffs`: data frame specifying patristic distance and pairwise
-    percent identity taxonomic rank cutoffs
+* `cutoffs`: data frame specifying patristic distance and pairwise percent identity taxonomic rank cutoffs
 
-To save time, the optimal phylogenetic neighborhood was previously
-calculated (= 0.33). Since it is lower than the genus patristic distance
-rank cutoff (= 0.332), we will set it to that value.
+To save time, the optimal phylogenetic neighborhood was previously calculated (= 0.33). Since it is lower than the genus patristic distance rank cutoff (= 0.332), we will set it to that value.
 
-``` r
+```{r}
 type <- "partial"
 
 ps <- ppit::nifH_example_ps
@@ -135,22 +85,15 @@ opt_thresh <- cutoffs[1,5]
 
 ## Infer host identity
 
-Now we’re ready to infer host identities for our sequences\! All we have
-to do is run the function `ppit`, which requires the same arguments as
-`tree.partition` in addition to the optimal neighborhood value we just
-calculated.
+Now we're ready to infer host identities for our sequences! All we have to do is run the function `ppit`, which requires the same arguments as `tree.partition` in addition to the optimal neighborhood value we just calculated.
 
-``` r
+```{r results = 'hide'}
 df_inferences <- ppit(type, query, tree, alignment, taxonomy, opt_thresh, cutoffs)
 ```
 
-Here, we’ll run `ppit` again on the subset of sequences that didn’t have
-any references within the optimal phylogenetic neighborhood. We’ll use
-the phylum cutoff as the neighborhood. Then, we’ll add the inferences as
-the taxonomy table to our phyloseq
-object.
+Here, we'll run `ppit` again on the subset of sequences that didn't have any references within the optimal phylogenetic neighborhood. We'll use the phylum cutoff as the neighborhood. Then, we'll add the inferences as the taxonomy table to our phyloseq object.
 
-``` r
+```{r results = 'hide'}
 requery <- rownames(df_inferences)[which(df_inferences$Pat_dist_fail == "X")]
 
 df_requery <- ppit(type = type, query = requery, tree = tree, alignment = alignment, taxonomy = taxonomy, opt_thresh = cutoffs[1,1], cutoffs = cutoffs)
@@ -168,13 +111,9 @@ tax_table(ps) <- tax_table
 ```
 
 ### Saving output (optional)
+If we want to save our results, we can run this chunk to write the ASV table and PPIT results data frame to tab-delimited files and the accompanying sequences to a text file.
 
-If we want to save our results, we can run this chunk to write the ASV
-table and PPIT results data frame to tab-delimited files and the
-accompanying sequences to a text
-file.
-
-``` r
+```{r}
 #write.table(t(otu_table(ps)), file = "FILL_PATH", col.names = TRUE, row.names = TRUE, quote = FALSE, sep = "\t")
 
 #write.table(df_inferences, file = "FILL_PATH", col.names = TRUE, row.names = TRUE, quote = FALSE, sep = "\t")
@@ -183,13 +122,9 @@ file.
 ```
 
 ## Brief analysis
+And that's all! Let's quickly inspect our results. Here, we'll make a barplot where we plot the relative abundance of only the _nifH_ sequences from each class from _Proteobacteria_ and from each phylum for all other groups.
 
-And that’s all\! Let’s quickly inspect our results. Here, we’ll make a
-barplot where we plot the relative abundance of only the *nifH*
-sequences from each class from *Proteobacteria* and from each phylum for
-all other groups.
-
-``` r
+```{r, example-relative-abundance}
 # Subset to just the sample we are interested in.
 keep_samps <- c("nifH-mehta-3500-sed-0cm25cm-C2-rep1")
 keep_samp_names <- grep(paste(keep_samps, collapse = "|"), sample_names(ps), value = TRUE)
@@ -259,14 +194,12 @@ ggplot(data = df_plot,
   theme_bw() +
   theme(axis.text.x = element_blank(),
         panel.grid = element_blank())
+
 ```
 
-![](ppit_tutorial_files/figure-gfm/example-relative-abundance-1.png)<!-- -->
+Plot up histogram of percent identity for select Desulfuromonadales ASVs. 
 
-Plot up histogram of percent identity for select Desulfuromonadales
-ASVs.
-
-``` r
+```{r, example-desulfuromonadales}
 # Read in data frame containing the ASV names of those clustering with G. electrodiphilus, D. kysingii, and the Desulfuromonas metagenomes.
 names <- ppit::desulfuro_asvs
 
@@ -347,28 +280,15 @@ p_desulfuromonas <- ggplot() +
        y = "Number of ASVs")
 
 p_geopsychro
-```
-
-![](ppit_tutorial_files/figure-gfm/example-desulfuromonadales-1.png)<!-- -->
-
-``` r
 p_desulfuromusa
-```
-
-![](ppit_tutorial_files/figure-gfm/example-desulfuromonadales-2.png)<!-- -->
-
-``` r
 p_desulfuromonas
 ```
 
-![](ppit_tutorial_files/figure-gfm/example-desulfuromonadales-3.png)<!-- -->
-
 ## Bonus: Use SEPP to insert nifH ASVs and remove poorly aligned sequences.
 
-For more details about SEPP, see the [SEPP
-tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
+For more details about SEPP, see the [SEPP tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
 
-``` r
+```{r SEPP placement}
 # Insert nifH ASVs into the reference alignment and tree. Before running, make sure there are no "/" characters in any of the sequence names in the files. Also, make sure there are no "--" in any of the sequence fragments, because for some reason SEPP doesn't run for sequences with that in the name
 
 # -t is the input tree (the reference nifH tree; ppit::nifH_reference_tree_v2)
