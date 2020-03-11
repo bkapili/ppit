@@ -6,8 +6,7 @@
 \title{Phyloseq object containing \emph{nifH} sequences analyzed in Kapili & Dekas, in prep.}
 \format{\code{phyloseq-class} object with 1245 sequences and 13 samples.}
 \source{
-BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-nifH sequences accounting for known horizontal gene transfer events. In prep.
+BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 }
 \usage{
 nifH_example_ps

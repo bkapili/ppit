@@ -3,11 +3,10 @@
 \docType{data}
 \name{nifH_reference_alignment_v2}
 \alias{nifH_reference_alignment_v2}
-\title{Reference \emph{nifH} nucleotide alignment (v1.0.0)}
-\format{\code{DNAMultipleAlignment} object with 8539 sequences}
+\title{Reference \emph{nifH} nucleotide alignment (v.1.2.0)}
+\format{\code{DNAMultipleAlignment} object with 8876 sequences}
 \source{
-BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-nifH sequences accounting for known horizontal gene transfer events. In prep.
+BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 }
 \usage{
 nifH_reference_alignment_v2

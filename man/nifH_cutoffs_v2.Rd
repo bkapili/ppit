@@ -3,17 +3,16 @@
 \docType{data}
 \name{nifH_cutoffs_v2}
 \alias{nifH_cutoffs_v2}
-\title{Patristic distance and pairwise percent identity taxonomic rank cutoffs for \emph{nifH}.}
+\title{Patristic distance and pairwise percent identity rank cutoffs for \emph{nifH}.}
 \format{\code{Data frame} object with 2 rows and 5 columns.}
 \source{
-BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-nifH sequences accounting for known horizontal gene transfer events. In prep.
+BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 }
 \usage{
 nifH_cutoffs_v2
 }
 \description{
-Patristic distance and pairwise percent identity taxonomic rank cutoffs for \emph{nifH}. For details
+Patristic distance and pairwise percent identity rank cutoffs for \emph{nifH}. For details
 on calculations, see Kapili & Dekas in prep.
 }
 \keyword{datasets}

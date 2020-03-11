@@ -3,17 +3,16 @@
 \docType{data}
 \name{nifH_reference_RAxML_info_v2}
 \alias{nifH_reference_RAxML_info_v2}
-\title{RAxML info file for SEPP placement (v1.0.0)}
+\title{RAxML info file for SEPP placement (v.1.2.0)}
 \format{\code{Data frame} object with 11477 rows and 1 column.}
 \source{
-BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-nifH sequences accounting for known horizontal gene transfer events. In prep.
+BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 }
 \usage{
 nifH_reference_RAxML_info_v2
 }
 \description{
 RAxML info file generated during construction of \code{nifH_reference_tree_v2}. To be used with SEPP (Mirarab et al., 2012) for insertion of \emph{nifH} query sequences
-into reference \emph{nifH} alignment and tree.
+into reference \emph{nifH} alignment and tree
 }
 \keyword{datasets}

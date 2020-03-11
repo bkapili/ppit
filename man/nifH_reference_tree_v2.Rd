@@ -3,11 +3,10 @@
 \docType{data}
 \name{nifH_reference_tree_v2}
 \alias{nifH_reference_tree_v2}
-\title{Reference \emph{nifH} gene tree (v1.0.0)}
-\format{\code{phylo} object with 8539 tips.}
+\title{Reference \emph{nifH} gene tree (v.1.2.0)}
+\format{\code{phylo} object with 8876 tips.}
 \source{
-BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-nifH sequences accounting for known horizontal gene transfer events. In prep.
+PPIT: an R package for inferring microbial taxonomy from nifH sequences
 }
 \usage{
 nifH_reference_tree_v2

@@ -33,48 +33,43 @@
 #'   ...
 #'   }
 #'
-#' @source BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-#' nifH sequences accounting for known horizontal gene transfer events. In prep.
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In. prep.
 "nifH_reference_taxonomy_v2"
 
-#' Reference \emph{nifH} gene tree (v1.0.0)
+#' Reference \emph{nifH} gene tree (v.1.2.0)
 #'
 #' Reference \emph{nifH} gene tree to use for inserting \emph{nifH} query sequences. For details about tree construction,
 #' see Kapili & Dekas, in prep.
 #'
-#' @format \code{phylo} object with 8539 tips.
-#' @source BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-#' nifH sequences accounting for known horizontal gene transfer events. In prep.
+#' @format \code{phylo} object with 8876 tips.
+#' @source PPIT: an R package for inferring microbial taxonomy from nifH sequences
 "nifH_reference_tree_v2"
 
-#' Reference \emph{nifH} nucleotide alignment (v1.0.0)
+#' Reference \emph{nifH} nucleotide alignment (v.1.2.0)
 #'
 #' Reference \emph{nifH} nucleotide alignment to use for inserting \emph{nifH} query sequences. For details about alignment creation,
 #' see Kapili & Dekas, in prep.
 #'
-#' @format \code{DNAMultipleAlignment} object with 8539 sequences
-#' @source BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-#' nifH sequences accounting for known horizontal gene transfer events. In prep.
+#' @format \code{DNAMultipleAlignment} object with 8876 sequences
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 "nifH_reference_alignment_v2"
 
-#' RAxML info file for SEPP placement (v1.0.0)
+#' RAxML info file for SEPP placement (v.1.2.0)
 #'
 #' RAxML info file generated during construction of \code{nifH_reference_tree_v2}. To be used with SEPP (Mirarab et al., 2012) for insertion of \emph{nifH} query sequences
-#' into reference \emph{nifH} alignment and tree.
+#' into reference \emph{nifH} alignment and tree
 #'
 #' @format \code{Data frame} object with 11477 rows and 1 column.
-#' @source BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-#' nifH sequences accounting for known horizontal gene transfer events. In prep.
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 "nifH_reference_RAxML_info_v2"
 
-#' Patristic distance and pairwise percent identity taxonomic rank cutoffs for \emph{nifH}.
+#' Patristic distance and pairwise percent identity rank cutoffs for \emph{nifH}.
 #'
-#' Patristic distance and pairwise percent identity taxonomic rank cutoffs for \emph{nifH}. For details
+#' Patristic distance and pairwise percent identity rank cutoffs for \emph{nifH}. For details
 #' on calculations, see Kapili & Dekas in prep.
 #'
 #' @format \code{Data frame} object with 2 rows and 5 columns.
-#' @source BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-#' nifH sequences accounting for known horizontal gene transfer events. In prep.
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 "nifH_cutoffs_v2"
 
 #' Phyloseq object containing \emph{nifH} sequences analyzed in Kapili & Dekas, in prep.
@@ -82,6 +77,21 @@
 #' Phyloseq object containing 1245 \emph{nifH} sequences and 13 samples. For details on sequence prep, see Kapili & Dekas, in prep.
 #'
 #' @format \code{phyloseq-class} object with 1245 sequences and 13 samples.
-#' @source BJ Kapili and AE Dekas. PPIT: taxonomy inference for
-#' nifH sequences accounting for known horizontal gene transfer events. In prep.
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
 "nifH_example_ps"
+
+#' SEPP output alignment for PPIT tutorial.
+#'
+#' SEPP output alignment to be used in PPIT tutorial. Produced by inserting the \emph{nifH} ASVs from \code{nifH_example_ps} into \code{nifH_reference_alignment_v2} using SEPP (v.4.3.5).
+#'
+#' @format \code{DNAMultipleAlignment} containing 10121 total sequences (8876 reference \emph{nifH} sequences; 1245 \emph{nifH} ASVs).
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
+"nifH_example_SEPP_alignment"
+
+#' SEPP output tree for PPIT tutorial.
+#'
+#' SEPP output tree to be used in PPIT tutorial. Produced by inserting the \emph{nifH} ASVs from \code{nifH_example_ps} into \code{nifH_reference_alignment_v2} and \code{nifH_reference_tree_v2} using SEPP (v.4.3.5).
+#'
+#' @format \code{DNAMultipleAlignment} containing 10121 total sequences (8876 reference \emph{nifH} sequences; 1245 \emph{nifH} ASVs).
+#' @source BJ Kapili and AE Dekas. PPIT: an R package for inferring microbial taxonomy from nifH sequences. In prep.
+"nifH_example_SEPP_tree"
