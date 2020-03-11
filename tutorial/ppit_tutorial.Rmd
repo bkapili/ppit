@@ -18,7 +18,7 @@ Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferri
 
 To install `ppit` directly from RStudio, use the `devtools` package:
 
-``` {r message = FALSE}
+``` {r results = 'hide'}
 # install.packages("devtools")
 devtools::install_github("BKapili/ppit")
 ```
@@ -286,7 +286,7 @@ p_desulfuromonas
 
 ## Bonus: Use SEPP to insert nifH ASVs and remove poorly aligned sequences.
 
-For more details about SEPP, see the [SEPP tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
+For more details about running SEPP, see the [SEPP tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
 
 ```{r SEPP placement}
 # Insert nifH ASVs into the reference alignment and tree. Before running, make sure there are no "/" characters in any of the sequence names in the files. Also, make sure there are no "--" in any of the sequence fragments, because for some reason SEPP doesn't run for sequences with that in the name

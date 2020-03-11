@@ -26,7 +26,7 @@ To install `ppit` directly from RStudio, use the `devtools` package:
 # install.packages("devtools")
 devtools::install_github("BKapili/ppit")
 ```
-Now, let's load the `ppit` package to get started.
+Let's load the `ppit` package to get started.
 
 ```{r message = FALSE}
 library(ppit)
@@ -200,7 +200,7 @@ ggplot(data = df_plot,
 
 ```
 
-Plot up histogram of percent identity for select Desulfuromonadales ASVs. 
+Plot up histogram of percent identity for select _Desulfuromonadales_ ASVs. 
 
 ```{r}
 # Read in data frame containing the ASV names of those clustering with G. electrodiphilus, D. kysingii, and the Desulfuromonas metagenomes.
@@ -287,192 +287,10 @@ p_desulfuromusa
 p_desulfuromonas
 ```
 
+## Bonus: Use SEPP to insert _nifH_ ASVs and remove poorly aligned sequences.
 
-## Bonus: Using `dada2` to infer nifH ASVs. Code adapted from the [dada2 tutorial](https://benjjneb.github.io/dada2/tutorial.html).
+For more details about running SEPP, see the [SEPP tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
 
-Set the paths to each primer set.
-```{r}
-#path_mehta <- "FILL_PATH" # Replace with location of downloaded sequences
-#fns_mehta <- list.files(path_mehta)
-#fastqs_mehta <- fns_mehta[grepl(".fastq$", fns_mehta)]
-#fastqs_mehta <- sort(fastqs_mehta) # Sort ensures forward/reverse reads are in same order
-
-#fnFs_mehta <- fastqs_mehta[grepl("_R1", fastqs_mehta)] # Just the forward read files
-#fnRs_mehta <- fastqs_mehta[grepl("_R2", fastqs_mehta)] # Just the reverse read files
-```
-
-Get sample names, assuming files named as: SAMPLENAME_XXX.fastq.
-```{r}
-#sample.names_mehta <- sapply(strsplit(fnFs_mehta, "_"), `[`, 1)
-```
-
-Specify the full path to the fnFs and fnRs.
-```{r}
-#fnFs_mehta <- file.path(path_mehta, fnFs_mehta)
-#fnRs_mehta <- file.path(path_mehta, fnRs_mehta)
-
-#plotQualityProfile(fnFs_mehta[[10]])
-#plotQualityProfile(fnRs_mehta[[10]])
-```
-
-Make directory and filenames for the filtered fastqs.
-```{r}
-#filt_path_mehta <- file.path(path_mehta, "filtered")
-#if(!file_test("-d", filt_path_mehta)) dir.create(filt_path_mehta)
-
-#filtFs_mehta <- file.path(filt_path_mehta, paste0(sample.names_mehta, "_F_filt.fastq"))
-#filtRs_mehta <- file.path(filt_path_mehta, paste0(sample.names_mehta, "_R_filt.fastq"))
-
-```
-
-Filter previously trimmed fastq files.
-```{r}
-# Filter those from mehta
-#for(i in seq_along(fnFs_mehta)) {
-#  fastqPairedFilter(c(fnFs_mehta[i], fnRs_mehta[i]), c(filtFs_mehta[i], filtRs_mehta[i]),
-#                    truncLen=c(220,220), 
-#                    maxN=0, maxEE=c(2,2), truncQ=2, rm.phix=TRUE,
-#                    compress=F, verbose=TRUE)
-#}
-```
-
-Make sure vectors only point to written files, in event sample ends up with 0 sequences after filtering.
-```{r}
-#fns_filt_mehta <- list.files(filt_path_mehta)
-#fastqs_filt_mehta <- fns_filt_mehta[grepl(".fastq$", fns_filt_mehta)]
-#fastqs_filt_mehta <- sort(fastqs_filt_mehta)
-#filtFs_mehta <- fastqs_filt_mehta[grepl("_F", fastqs_filt_mehta)] 
-#filtRs_mehta <- fastqs_filt_mehta[grepl("_R", fastqs_filt_mehta)]
-
-#sample.names.filt_mehta <- sapply(strsplit(filtFs_mehta, "_"), `[`, 1)
-```
-
-Dereplicate sequence files.
-```{r}
-#setwd(filt_path_mehta)
-#derepFs_mehta <- derepFastq(filtFs_mehta, verbose=TRUE)
-#derepRs_mehta <- derepFastq(filtRs_mehta, verbose=TRUE)
-```
-
-Name the derep-class objects by the sample names.
-```{r}
-#names(derepFs_mehta) <- sample.names.filt_mehta
-#names(derepRs_mehta) <- sample.names.filt_mehta
-```
-
-Determine error rates.
-```{r}
-#dadaFs.lrn_mehta <- dada(derepFs_mehta, err=NULL, selfConsist = TRUE, multithread=TRUE)
-#errF_mehta <- dadaFs.lrn_mehta[[1]]$err_out
-
-#dadaRs.lrn_mehta <- dada(derepRs_mehta, err=NULL, selfConsist = TRUE, multithread=TRUE)
-#errR_mehta <- dadaRs.lrn_mehta[[1]]$err_out
-
-#plotErrors(dadaFs.lrn_mehta[[1]], nominalQ=TRUE)
-```
-
-Infer the sequence variants.
-```{r}
-#dadaFs_mehta <- dada(derepFs_mehta, err=errF_mehta, multithread=TRUE, pool=TRUE)
-#dadaRs_mehta <- dada(derepRs_mehta, err=errR_mehta, multithread=TRUE, pool=TRUE)
-```
-
-Merge paired-end reads.
-```{r}
-#mergers_mehta <- mergePairs(dadaFs_mehta, derepFs_mehta, dadaRs_mehta, derepRs_mehta, verbose=TRUE)
-```
-
-Make an 'OTU' (ASV) table.
-```{r}
-#seqtab_mehta <- makeSequenceTable(mergers_mehta)
-#dim(seqtab_mehta)
-```
-
-Inspect distribution of sequence lengths.
-```{r}
-#table(nchar(getSequences(seqtab_mehta)))
-```
-
-Filter sequences to retain just those between 320-367 bp.
-```{r}
-#seqtab2_mehta <- seqtab_mehta[,nchar(colnames(seqtab_mehta)) %in% seq(320,367)]
-```
-
-Remove chimeric sequences.
-```{r}
-#seqtab.nochim_mehta <- removeBimeraDenovo(seqtab2_mehta, verbose=TRUE)
-#dim(seqtab.nochim_mehta) #how many sequences passed 
-#sum(seqtab.nochim_mehta)/sum(seqtab2_mehta) #percentage of sequences not chimeras
-```
-
-Create dataframe with sample information.
-```{r}
-#otu.seqs_mehta <- colnames(seqtab.nochim_mehta)
-#otu.names_mehta <- paste("ASV",1:length(otu.seqs_mehta),sep=".")
-#otu.df_mehta <- data.frame(otu.names_mehta, otu.seqs_mehta)
-#seqtab.otu_mehta <- seqtab.nochim_mehta
-#colnames(seqtab.otu_mehta) <- otu.df_mehta$otu.names_mehta
-
-#samples.out <- rownames(seqtab.otu_mehta)
-#project <- sapply(strsplit(samples.out, "-"), `[`, 1)
-#primer <- sapply(strsplit(samples.out, "-"), `[`, 2)
-#depth <- sapply(strsplit(samples.out, "-"), `[`, 3)
-#environ <- sapply(strsplit(samples.out, "-"), `[`, 4)
-#site_depth <- sapply(strsplit(samples.out, "-"), `[`, 5)
-#core <- sapply(strsplit(samples.out, "-"), `[`, 6)
-#rep <- sapply(strsplit(samples.out, "-"), `[`, 7)
-
-#samdf_mehta <- data.frame(Project=project,Primer=primer,Depth=depth,
-#                      Environ=environ,Site_depth=site_depth, Core=core,Rep=rep)
-#rownames(samdf_mehta) <- samples.out
-
-#seqs_mehta <- DNAStringSet(otu.df_mehta$otu.seqs_mehta)
-#names(seqs_mehta) <- otu.df_mehta$otu.names_mehta
-```
-
-Make phyloseq object that incorporates sample information data frame (samdf), OTU table (seqtab.otu), taxonomy information (taxa), and sequence data (seqs). Then, prune singletons.
-```{r}
-#psMehta <- phyloseq(otu_table(seqtab.otu_mehta, taxa_are_rows=FALSE), sample_data(samdf_mehta), refseq(seqs_mehta))
-#psMehta <- prune_taxa(taxa_sums(psMehta) > 1, psMehta)
-```
-
-```{r}
-# Write the ASVs to a fasta file
-#writeXStringSet(refseq(psMehta), filepath = 'INSERT_PATH',format='fasta')
-
-# Write the reference alignment to a fasta file
-#writeXStringSet(DNAStringSet(ppit::nifH_reference_alignment_v2), filepath='INSERT_PATH')
-
-# Write the reference tree to a Newick file
-#write.tree(ppit::nifH_reference_tree_v2, file = 'INSERT_PATH')
-
-# Write out the RAxML info file
-#write.table(ppit::nifH_reference_RAxML_info_v2, file = 'INSERT_PATH', quote = FALSE, col.names = FALSE, row.names = FALSE)
-```
-
-At this step, run `SEPP` using the written files. Check the output alignment, record which ASVs did not align to the target region, and remove them from the phyloseq object.
-```{r}
-#nifH_mehta_ASV_to_remove <- c("ASV.1003",
-#                              "ASV.1004",
-#                              "ASV.1064",
-#                              "ASV.1090",
-#                              "ASV.1157",
-#                              "ASV.1213",
-#                              "ASV.1229",
-#                              "ASV.1230",
-#                              "ASV.1255",
-#                              "ASV.424",
-#                              "ASV.588",
-#                              "ASV.626",
-#                              "ASV.784",
-#                              "ASV.959")
-
-#psMehta <- prune_taxa(taxa_names(psMehta) %in% nifH_mehta_ASV_to_remove == FALSE, psMehta) # Remove poorly aligned ASVs
-```
-
-## Bonus: Use SEPP to insert nifH ASVs and remove poorly aligned sequences.
-
-SEPP for placement
 ```{r SEPP placement}
 # Insert nifH ASVs into the reference alignment and tree. Before running, make sure there are no "/" characters in any of the sequence names in the files. Also, make sure there are no "--" in any of the sequence fragments, because for some reason SEPP doesn't run for sequences with that in the name
 

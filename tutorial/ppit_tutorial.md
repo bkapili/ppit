@@ -12,33 +12,8 @@ To install `ppit` directly from RStudio, use the `devtools` package:
 ``` r
 # install.packages("devtools")
 devtools::install_github("BKapili/ppit")
-#> 
-#>   
-   checking for file ‘/private/var/folders/lv/ngmpvk051nj98v04ywgsvtkr0000gn/T/RtmpgLnfSW/remotes6814294c4762/BKapili-ppit-b2bcecb/DESCRIPTION’ ...
-  
-✔  checking for file ‘/private/var/folders/lv/ngmpvk051nj98v04ywgsvtkr0000gn/T/RtmpgLnfSW/remotes6814294c4762/BKapili-ppit-b2bcecb/DESCRIPTION’
-#> 
-  
-─  preparing ‘ppit’:
-#> 
-  
-   checking DESCRIPTION meta-information ...
-  
-✔  checking DESCRIPTION meta-information
-#> 
-  
-─  checking for LF line-endings in source and make files and shell scripts
-#> 
-  
-─  checking for empty or unneeded directories
-#> ─  looking to see if a ‘data/datalist’ file should be added
-#> 
-  
-─  building ‘ppit_1.2.0.tar.gz’ (2s)
-#> 
-  
-   
-#> 
+#> Downloading GitHub repo BKapili/ppit@master
+#> Skipping 1 packages not available: Biostrings
 ```
 
 Now, let’s load the `ppit` package to get started.
@@ -365,7 +340,7 @@ p_desulfuromonas
 
 ## Bonus: Use SEPP to insert nifH ASVs and remove poorly aligned sequences.
 
-For more details about SEPP, see the [SEPP
+For more details about running SEPP, see the [SEPP
 tutorial](https://github.com/smirarab/sepp/blob/master/tutorial/sepp-tutorial.md).
 
 ``` r
