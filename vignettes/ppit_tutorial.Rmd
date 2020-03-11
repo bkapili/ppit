@@ -20,7 +20,14 @@ Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferri
 
 ## Getting started
 
-Let's load the `ppit` package to get started.
+To install `ppit` directly from RStudio, use the `devtools` package:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("BKapili/ppit")
+```
+Now, let's load the `ppit` package to get started.
+
 ```{r message = FALSE}
 library(ppit)
 library(phyloseq)
@@ -59,6 +66,7 @@ To do this, we run the function `tree.partition`, which requires 6 arguments:
 * `cutoffs`: data frame specifying patristic distance and pairwise percent identity taxonomic rank cutoffs
 
 To save time, the optimal phylogenetic neighborhood was previously calculated (= 0.33). Since it is lower than the genus patristic distance rank cutoff (= 0.332), we will set it to that value.
+
 ```{r}
 type <- "partial"
 
@@ -81,11 +89,13 @@ opt_thresh <- cutoffs[1,5]
 ## Infer host identity
 
 Now we're ready to infer host identities for our sequences! All we have to do is run the function `ppit`, which requires the same arguments as `tree.partition` in addition to the optimal neighborhood value we just calculated.
+
 ```{r results = 'hide'}
 df_inferences <- ppit(type, query, tree, alignment, taxonomy, opt_thresh, cutoffs)
 ```
 
 Here, we'll run `ppit` again on the subset of sequences that didn't have any references within the optimal phylogenetic neighborhood. We'll use the phylum cutoff as the neighborhood. Then, we'll add the inferences as the taxonomy table to our phyloseq object.
+
 ```{r results = 'hide'}
 requery <- rownames(df_inferences)[which(df_inferences$Pat_dist_fail == "X")]
 
@@ -105,6 +115,7 @@ tax_table(ps) <- tax_table
 
 ### Saving output (optional)
 If we want to save our results, we can run this chunk to write the ASV table and PPIT results data frame to tab-delimited files and the accompanying sequences to a text file.
+
 ```{r}
 #write.table(t(otu_table(ps)), file = "FILL_PATH", col.names = TRUE, row.names = TRUE, quote = FALSE, sep = "\t")
 
@@ -115,6 +126,7 @@ If we want to save our results, we can run this chunk to write the ASV table and
 
 ## Brief analysis
 And that's all! Let's quickly inspect our results. Here, we'll make a barplot where we plot the relative abundance of only the _nifH_ sequences from each class from _Proteobacteria_ and from each phylum for all other groups.
+
 ```{r}
 # Subset to just the sample we are interested in.
 keep_samps <- c("nifH-mehta-3500-sed-0cm25cm-C2-rep1")
@@ -189,11 +201,9 @@ ggplot(data = df_plot,
 ```
 
 Plot up histogram of percent identity for select Desulfuromonadales ASVs. 
-```{r}
-# Read in PPIT output.
-df_ppit <- read.table(file = "/Users/bennettkapili/Documents/STANFORD/DEKAS/nifH_Methods_Dev/tax_inference_pipeline/field_data/Analysis/df_inferences_mehta.txt", sep = "\t", row.names = 1, header = TRUE, fill = TRUE)
 
-# Read in .csv containing the ASV names of those clustering with G. electrodiphilus, D. kysingii, and the Desulfuromonas metagenomes. Replace "." with "-", because for some reason these characters in the .csv file are changed upon import.
+```{r}
+# Read in data frame containing the ASV names of those clustering with G. electrodiphilus, D. kysingii, and the Desulfuromonas metagenomes.
 names <- ppit::desulfuro_asvs
 
 # For each column name, corresponding to one of the reference sequences in the Desulfuromonadales, compute the percent identity with each ASV.

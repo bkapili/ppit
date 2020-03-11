@@ -124,7 +124,7 @@ If we want to save our results, we can run this chunk to write the ASV table and
 ## Brief analysis
 And that's all! Let's quickly inspect our results. Here, we'll make a barplot where we plot the relative abundance of only the _nifH_ sequences from each class from _Proteobacteria_ and from each phylum for all other groups.
 
-```{r, example-relative-abundance}
+```{r example-relative-abundance}
 # Subset to just the sample we are interested in.
 keep_samps <- c("nifH-mehta-3500-sed-0cm25cm-C2-rep1")
 keep_samp_names <- grep(paste(keep_samps, collapse = "|"), sample_names(ps), value = TRUE)
@@ -199,7 +199,7 @@ ggplot(data = df_plot,
 
 Plot up histogram of percent identity for select Desulfuromonadales ASVs. 
 
-```{r, example-desulfuromonadales}
+```{r example-desulfuromonadales}
 # Read in data frame containing the ASV names of those clustering with G. electrodiphilus, D. kysingii, and the Desulfuromonas metagenomes.
 names <- ppit::desulfuro_asvs
 
