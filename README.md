@@ -24,5 +24,7 @@ devtools::install_github("BKapili/ppit")
 
 ## Documentation
 
-To get started, see the tutorial that walks through the analysis using
-*nifH* amplicons generated from Illumina MiSeq data.
+To get started, see the
+[tutorial](https://github.com/BKapili/ppit/blob/master/tutorial/ppit_tutorial.md)
+that walks through the analysis using *nifH* amplicons generated from
+Illumina MiSeq data.
