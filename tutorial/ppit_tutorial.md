@@ -1,9 +1,9 @@
 PPIT tutorial (v.1.2.0)
 ================
 
-|                                                                                                                                                                                       |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferring source organism identity of *nifH* sequences. For additional details, see Kapili & Dekas, in prep. |
+|                                                                                                                                                                                                              |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferring source organism identity of *nifH* sequences. This tutorial reproduces the analyses presented in Kapili & Dekas, in prep. |
 
 ## Getting started
 
