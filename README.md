@@ -2,7 +2,7 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 ![PPIT
-logo](https://raw.githubusercontent.com/BKapili/ppit/blob/master/logo/PPIT_logo_v1.eps)
+logo](https://raw.githubusercontent.com/BKapili/ppit/master/logo/PPIT_logo_v1.png)
 
 <!-- badges: start -->
 
