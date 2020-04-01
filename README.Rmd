@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# PPIT
+![PPIT logo](https://raw.githubusercontent.com/BKapili/ppit/blob/master/logo/PPIT_logo_v1.eps)
 
 <!-- badges: start -->
 <!-- badges: end -->

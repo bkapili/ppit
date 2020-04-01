@@ -1,7 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# PPIT
+![PPIT
+logo](https://raw.githubusercontent.com/BKapili/ppit/blob/master/logo/PPIT_logo_v1.eps)
 
 <!-- badges: start -->
 
