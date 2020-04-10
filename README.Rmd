@@ -22,10 +22,17 @@ Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferri
 
 ## Installation
 
-To install `ppit` directly from RStudio, use the `devtools` package:
+To install `ppit` directly from RStudio, first download the dependent package `Biostrings` from Bioconductor then use the `devtools` package to install `ppit`:
 
 ``` r
-# install.packages("devtools")
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("Biostrings")
+
+if (!requireNamespace("devtools", quietly = TRUE))
+    install.packages("devtools")
+
 devtools::install_github("BKapili/ppit")
 ```
 
