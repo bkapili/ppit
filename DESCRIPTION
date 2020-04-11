@@ -2,7 +2,7 @@ Package: ppit
 Type: Package
 Imports: 
     ape (>= 5.3),
-    Biostrings (>= 2.52.0)
+    Biostrings (>= 2.50.0)
 Title: Phylogenetic Placement for Inferring Taxonomy
 Version: 1.2.0
 Authors@R: person("Bennett", "Kapili", email = "kapili@stanford.edu",
