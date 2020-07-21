@@ -24,7 +24,7 @@ To install `ppit` directly from RStudio, use the `devtools` package:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("BKapili/ppit")
+devtools::install_github("BKapili/ppit", build_vignettes = TRUE)
 ```
 Let's load the `ppit` package to get started.
 
@@ -219,6 +219,8 @@ for(x in 1:nrow(names)) {
    names[x,7] <- max(names[x,grep("Desulfuromonas", colnames(names))])
 }
 colnames(names)[7] <- "Desulfuromonas_max"
+
+
 
 # Plot up histogram of percent identities for only those ASVs.
 p_geopsychro <- ggplot() +
