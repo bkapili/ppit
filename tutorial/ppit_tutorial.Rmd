@@ -16,11 +16,11 @@ Phylogenetic Placement for Inferring Taxonomy (PPIT) is an R package for inferri
 
 ## Getting started
 
-To install `ppit` directly from RStudio, use the `devtools` package:
+To install `ppit` directly in RStudio, use the `devtools` package:
 
 ``` {r results = 'hide'}
 # install.packages("devtools")
-devtools::install_github("BKapili/ppit")
+devtools::install_github("BKapili/ppit", build_vignettes = TRUE)
 ```
 
 Now, let's load the `ppit` package to get started.

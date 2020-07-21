@@ -7,13 +7,14 @@ PPIT tutorial (v.1.2.0)
 
 ## Getting started
 
-To install `ppit` directly from RStudio, use the `devtools` package:
+To install `ppit` directly in RStudio, use the `devtools` package:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("BKapili/ppit")
+devtools::install_github("BKapili/ppit", build_vignettes = TRUE)
 #> Downloading GitHub repo BKapili/ppit@master
 #> Skipping 1 packages not available: Biostrings
+#> Installing 2 packages: ape, Rcpp
 ```
 
 Now, let’s load the `ppit` package to get started.
@@ -23,6 +24,7 @@ library(ppit)
 library(phyloseq)
 library(Biostrings)
 library(ape)
+#> Warning: package 'ape' was built under R version 3.6.2
 library(ggplot2)
 ```
 
